@@ -52,6 +52,7 @@ targets = [(player_x, player_y), (player_x, player_y), (player_x, player_y), (pl
 blinky_dead = False
 inky_dead = False
 clyde_dead = False
+pinky_dead = False
 blinky_box = False
 inky_box = False
 clyde_box = False
@@ -70,10 +71,28 @@ class Ghost:
         self.target = target
         self.speed = speed
         self.img = img
+        self.direction = direct
+        self.dead = dead
         self.in_box = box
         self.id = id
         self.turns, self.in_box = self.check_collisions()
         self.rect = self.draw()
+
+    def draw(self):
+        if (not powerup and not self.dead) or (eaten_ghost[self.id] and powerup and not self.dead):
+            screen.blit(self.img, (self.x_pos, self.y_pos))
+        elif powerup and not self.dead and not eaten_ghost[self.id]:
+            screen.blit(spooked_img, (self.x_pos, self.y_pos))
+        else:
+            screen.blit(dead_img, (self.x_pos, self.y_pos))
+        ghost_rect = pygame.rect.Rect((self.center_x - 18, self.center_y - 18), (36, 36))
+        return ghost_rect
+    
+    def check_collisions(self):
+        self.turns = [False, False, False, False]
+        self.in_box = True
+        return self.turns, self.in_box
+    
 
 
 def draw_misc():
@@ -85,7 +104,7 @@ def draw_misc():
         screen.blit(pygame.transform.scale(player_images[0], (30, 30)), (650 + i * 40, 915))
 
 
-def check_collisions(scor):
+def check_collisions(scor, power, power_count, eaten_ghosts):
     num1 = (HEIGHT - 50) // 32
     num2 = WIDTH//30
     if 0 < player_x < 870:
@@ -235,6 +254,14 @@ while run:
     screen.fill('black')
     draw_board()
     draw_player()
+    blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speed, blinky_img, blinky_direction, blinky_dead,
+                blinky_box, 0)
+    inky = Ghost(inky_x, inky_y, targets[1], ghost_speed, inky_img, inky_direction, inky_dead,
+                inky_box, 1)
+    pinky = Ghost(pinky_x, pinky_y, targets[2], ghost_speed, pinky_img, pinky_direction, pinky_dead,
+                pinky_box, 2)
+    clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speed, clyde_img, clyde_direction, clyde_dead,
+                clyde_box, 3)
     draw_misc()
     center_x = player_x + 23
     center_y = player_y + 24

@@ -160,6 +160,32 @@ class Ghost:
             self.in_box = False
         return self.turns, self.in_box
     
+    def move_clyde(self):
+        # r, l, u, d
+        # clyde is going to turn whenever advantageous for pursuit
+        if self.direction == 0:
+            if self.target[0] > self.x_pos and self.turns[0]:
+                self.x_pos += self.speed
+            elif not self.turns[0]:
+                if self.target[1] > self.y_pos and self.turns[3]:
+                    self.direction = 3
+                    self.y_pos += self.speed
+                elif self.target[1] < self.y_pos and self.turns[2]:
+                    self.direction = 2
+                    self.y_pos -= self.speed
+                elif self.target[0] < self.x_pos and self.turns[1]:
+                    self.direction = 1
+                    self.x_pos -= self.speed
+                elif self.turns[3]:
+                    self.direction = 3
+                    self.y_pos += self.speed
+                elif self.turns[2]:
+                    self.direction = 2 
+                    self.y_pos -= self.speed
+                elif self.turns[1]:
+                    self.direction = 1
+                    self.x_pos -= self.speed           
+
 
 
 def draw_misc():

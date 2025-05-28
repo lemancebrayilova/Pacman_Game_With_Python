@@ -542,8 +542,7 @@ while run:
         inky_x, inky_y, inky_direction = inky.move_clyde()
         clyde_x, clyde_y, clyde_direction = clyde.move_clyde()
     score, powerup, power_counter, eaten_ghost = check_collisions(score, powerup, power_counter, eaten_ghost)
-
-
+    # add to if not powerup to check if eaten ghosts
     if not powerup:
         if (player_circle.colliderect(blinky.rect) and not blinky.dead) or \
             (player_circle.colliderect(inky.rect) and not inky.dead) or \
@@ -576,7 +575,42 @@ while run:
     if powerup and player_circle.colliderect(blinky.rect) and not blinky.dead and not eaten_ghost[0]:
         blinky_dead = True
         eaten_ghost[0] = True
+    if powerup and player_circle.colliderect(inky.rect) and not inky.dead and not eaten_ghost[1]:
+        inky_dead = True
+        eaten_ghost[1] = True
+    if powerup and player_circle.colliderect(pinky.rect) and not pinky.dead and not eaten_ghost[2]:
+        pinky_dead = True
+        eaten_ghost[2] = True
+    if powerup and player_circle.colliderect(clyde.rect) and not clyde.dead and not eaten_ghost[3]:
+        clyde_dead = True
+        eaten_ghost[3] = True
+    if powerup and player_circle.colliderect(blinky.rect) and eaten_ghost[0]:
+        if lives > 0:
+            lives -= 1
+            startup_counter = 0
+            player_x = 450
+            player_y = 663
+            direction = 0
+            direction_command = 0
+            blinky_x = 56
+            blinky_y = 58
+            blinky_direction = 0
+            inky_x = 440
+            inky_y = 388
+            inky_direction = 2
+            pinky_x = 440
+            pinky_y = 438
+            pinky_direction = 2
+            clyde_x = 440
+            clyde_y = 438
+            clyde_direction = 2
+            eaten_ghost = [False, False, False, False]
+            blinky_dead = False
+            inky_dead = False
+            clyde_dead = False
+            pinky_dead = False
 
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

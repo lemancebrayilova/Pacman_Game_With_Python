@@ -814,7 +814,7 @@ def get_targets(blink_x, blink_y, ink_x, ink_y, pink_x, pink_y, clyd_x, clyd_y):
         if not blinky.dead and not eaten_ghost[0]:
             blink_target = (runaway_x, runaway_y)
         elif not blinky.dead and eaten_ghost[0]:
-            if 340 < blinky_x < 560 and 340 < blink_y < 500:
+            if 340 < blink_x < 560 and 340 < blink_y < 500:
                 blink_target = (400, 100)
             else:
                 blink_target = (player_x, player_y)
@@ -849,28 +849,28 @@ def get_targets(blink_x, blink_y, ink_x, ink_y, pink_x, pink_y, clyd_x, clyd_y):
             clyd_target = return_target
     else:
         if not blinky.dead:
-            if 340 < blink_x < 560 and 380 < blink_y < 500:
+            if 340 < blink_x < 560 and 340 < blink_y < 500:
                 blink_target = (400, 100)
             else:
                 blink_target = (player_x, player_y)
         else:
             blink_target = return_target
         if not inky.dead:
-            if 340 < ink_x < 560 and 380 < ink_y < 500:
+            if 340 < ink_x < 560 and 340 < ink_y < 500:
                 ink_target = (400, 100)
             else:
                 ink_target = (player_x, player_y)
         else:
             ink_target = return_target
         if not pinky.dead:
-            if 340 < pink_x < 560 and 380 < pink_y < 500:
+            if 340 < pink_x < 560 and 340 < pink_y < 500:
                 pink_target = (400, 100)
             else:
                 pink_target = (player_x, player_y)
         else:
             pink_target = return_target
         if not clyde.dead:
-            if 340 < clyd_x < 560 and 380 < clyd_y < 500:
+            if 340 < clyd_x < 560 and 340 < clyd_y < 500:
                 clyd_target = (400, 100)
             else:
                 clyd_target = (player_x, player_y)
@@ -895,7 +895,7 @@ while run:
         power_counter = 0
         powerup = False
         eaten_ghost = [False, False, False, False]
-    if startup_counter < 180 and game_over and not game_won:
+    if startup_counter < 180 and not game_over and not game_won:
         moving = False
         startup_counter += 1
     else:
@@ -934,15 +934,16 @@ while run:
     player_circle = pygame.draw.circle(screen, 'black', (center_x, center_y), 20, 2)
     draw_player()
     blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speeds[0], blinky_img, blinky_direction, blinky_dead,
-                blinky_box, 0)
+                   blinky_box, 0)
     inky = Ghost(inky_x, inky_y, targets[1], ghost_speeds[1], inky_img, inky_direction, inky_dead,
-                inky_box, 1)
+                 inky_box, 1)
     pinky = Ghost(pinky_x, pinky_y, targets[2], ghost_speeds[2], pinky_img, pinky_direction, pinky_dead,
-                pinky_box, 2)
+                  pinky_box, 2)
     clyde = Ghost(clyde_x, clyde_y, targets[3], ghost_speeds[3], clyde_img, clyde_direction, clyde_dead,
-                clyde_box, 3)
+                  clyde_box, 3)
     draw_misc()
     targets = get_targets(blinky_x, blinky_y, inky_x, inky_y, pinky_x, pinky_y, clyde_x, clyde_y)
+    
     turns_allowed = check_position(center_x, center_y)
     if moving:
         player_x, player_y = move_player(player_x, player_y)
@@ -957,7 +958,7 @@ while run:
         if not inky_dead and not inky.in_box:
             inky_x, inky_y, inky_direction = inky.move_inky()
         else:
-            pinky_x, pinky_y, pinky_direction = inky.move_clyde()
+            inky_x, inky_y, inky_direction = inky.move_clyde()
         clyde_x, clyde_y, clyde_direction = clyde.move_clyde()
     score, powerup, power_counter, eaten_ghost = check_collisions(score, powerup, power_counter, eaten_ghost)
     # add to if not powerup to check if eaten ghosts
@@ -1150,10 +1151,10 @@ while run:
             if event.key == pygame.K_DOWN:
                 direction_command = 3
             if event.key == pygame.K_SPACE and (game_over or game_won):
-                lives -= 1
-                startup_counter = 0
                 powerup = False
                 power_counter = 0
+                lives -= 1
+                startup_counter = 0
                 player_x = 450
                 player_y = 663
                 direction = 0

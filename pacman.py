@@ -520,6 +520,9 @@ while run:
 
     screen.fill('black')
     draw_board()
+    center_x = player_x + 23
+    center_y = player_y + 24
+    player_circle = pygame.draw.circle(screen, 'black', (center_x, center_y), 20, 2)
     draw_player()
     blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speed, blinky_img, blinky_direction, blinky_dead,
                 blinky_box, 0)
@@ -531,8 +534,6 @@ while run:
                 clyde_box, 3)
     draw_misc()
     targets = get_targets(blinky_x, blinky_y, inky_x, inky_y, pinky_x, pinky_y, clyde_x, clyde_y)
-    center_x = player_x + 23
-    center_y = player_y + 24
     turns_allowed = check_position(center_x, center_y)
     if moving:
         player_x, player_y = move_player(player_x, player_y)
@@ -541,6 +542,40 @@ while run:
         inky_x, inky_y, inky_direction = inky.move_clyde()
         clyde_x, clyde_y, clyde_direction = clyde.move_clyde()
     score, powerup, power_counter, eaten_ghost = check_collisions(score, powerup, power_counter, eaten_ghost)
+
+
+    if not powerup:
+        if (player_circle.colliderect(blinky.rect) and not blinky.dead) or \
+            (player_circle.colliderect(inky.rect) and not inky.dead) or \
+            (player_circle.colliderect(pinky.rect) and not pinky.dead) or \
+            (player_circle.colliderect(clyde.rect) and not clyde.dead):
+            if lives > 0:
+                lives -= 1
+                startup_counter = 0
+                player_x = 450
+                player_y = 663
+                direction = 0
+                direction_command = 0
+                blinky_x = 56
+                blinky_y = 58
+                blinky_direction = 0
+                inky_x = 440
+                inky_y = 388
+                inky_direction = 2
+                pinky_x = 440
+                pinky_y = 438
+                pinky_direction = 2
+                clyde_x = 440
+                clyde_y = 438
+                clyde_direction = 2
+                eaten_ghost = [False, False, False, False]
+                blinky_dead = False
+                inky_dead = False
+                clyde_dead = False
+                pinky_dead = False
+    if powerup and player_circle.colliderect(blinky.rect) and not blinky.dead and not eaten_ghost[0]:
+        blinky_dead = True
+        eaten_ghost[0] = True
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -582,8 +617,6 @@ while run:
     pygame.display.flip()
 pygame.quit()
 
-
-# get ghosts moving through ghost door
 # lose a life and reset on collision with ghost
 # eat ghost and send running back to cage if powerup
 # create 3 extra movement algorithms

@@ -898,6 +898,14 @@ while run:
         ghost_speeds = [1, 1, 1, 1]
     else:
         ghost_speeds = [2, 2, 2, 2]
+    if eaten_ghost[0]:
+        ghost_speeds[0] = 2
+    if eaten_ghost[1]:
+        ghost_speeds[1] = 2
+    if eaten_ghost[2]:
+        ghost_speeds[2] = 2
+    if eaten_ghost[3]:
+        ghost_speeds[3] = 2
     if blinky_dead:
         ghost_speeds[0] = 4
     if inky_dead:
@@ -1143,5 +1151,5 @@ while run:
 pygame.quit()
 
 
-# create 3 extra movement algorithms
+
 # sound effects, restart and winning messages

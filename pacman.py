@@ -185,11 +185,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[1]:
                     self.direction = 1
-                    self.x_pos -= self.speed           
+                    self.x_pos -= self.speed
             elif self.turns[0]:
                 if self.target[1] > self.y_pos and self.turns[3]:
                     self.direction = 3
@@ -218,11 +218,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[1]:
                 if self.target[1] > self.y_pos and self.turns[3]:
                     self.direction = 3
@@ -257,7 +257,7 @@ class Ghost:
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[2]:
                 if self.target[0] > self.x_pos and self.turns[0]:
                     self.direction = 0
@@ -302,7 +302,7 @@ class Ghost:
             self.x_pos = 900
         elif self.x_pos > 900:
             self.x_pos - 30
-        return self.x_pos, self.y_pos, self.direction  
+        return self.x_pos, self.y_pos, self.direction 
     
     def move_blinky(self):
         # r, l, u, d
@@ -324,11 +324,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[1]:
                     self.direction = 1
-                    self.x_pos -= self.speed           
+                    self.x_pos -= self.speed
             elif self.turns[0]:
                 self.x_pos += self.speed
         elif self.direction == 1:
@@ -348,11 +348,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[1]:
                 self.x_pos -= self.speed
         elif self.direction == 2:
@@ -374,10 +374,10 @@ class Ghost:
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed 
+                    self.x_pos += self.speed
                 elif self.turns[1]:
                     self.direction = 1
-                    self.x_pos -= self.speed         
+                    self.x_pos -= self.speed
             elif self.turns[2]:
                 self.y_pos -= self.speed
         elif self.direction == 3:
@@ -430,11 +430,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[1]:
                     self.direction = 1
-                    self.x_pos -= self.speed           
+                    self.x_pos -= self.speed
             elif self.turns[0]:
                 if self.target[1] > self.y_pos and self.turns[3]:
                     self.direction = 3
@@ -463,11 +463,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[1]:
                 if self.target[1] > self.y_pos and self.turns[3]:
                     self.direction = 3
@@ -499,7 +499,7 @@ class Ghost:
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[2]:
                 self.y_pos -= self.speed
         elif self.direction == 3:
@@ -534,7 +534,7 @@ class Ghost:
     
     def move_pinky(self):
         # r, l, u, d
-        # pinky is going to turn left or right whenever advantageous, but only up or down on collision
+        # inky is going to turn left or right whenever advantageous, but only up or down on collision
         if self.direction == 0:
             if self.target[0] > self.x_pos and self.turns[0]:
                 self.x_pos += self.speed
@@ -552,11 +552,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[1]:
                     self.direction = 1
-                    self.x_pos -= self.speed           
+                    self.x_pos -= self.speed
             elif self.turns[0]:
                 self.x_pos += self.speed
         elif self.direction == 1:
@@ -578,11 +578,11 @@ class Ghost:
                     self.direction = 3
                     self.y_pos += self.speed
                 elif self.turns[2]:
-                    self.direction = 2 
+                    self.direction = 2
                     self.y_pos -= self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[1]:
                 self.x_pos -= self.speed
         elif self.direction == 2:
@@ -610,7 +610,7 @@ class Ghost:
                     self.y_pos += self.speed
                 elif self.turns[0]:
                     self.direction = 0
-                    self.x_pos += self.speed           
+                    self.x_pos += self.speed
             elif self.turns[2]:
                 if self.target[0] > self.x_pos and self.turns[0]:
                     self.direction = 0

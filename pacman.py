@@ -448,20 +448,40 @@ def get_targets(blink_x, blink_y, ink_x, ink_y, pink_x, pink_y, clyd_x, clyd_y):
         runaway_y = 0
     return_target = (380, 400)
     if powerup:
-        if not blinky.dead:
+        if not blinky.dead and not eaten_ghost[0]:
             blink_target = (runaway_x, runaway_y)
+        elif not blinky.dead and eaten_ghost[0]:
+            if 340 < blinky_x < 560 and 340 < blink_y < 500:
+                blink_target = (400, 100)
+            else:
+                blink_target = (player_x, player_y)
         else:
             blink_target = return_target
-        if not inky.dead:
-            ink_target = (runaway_x, runaway_y)
+        if not inky.dead and not eaten_ghost[1]:
+            ink_target = (runaway_x, player_y)
+        elif not inky.dead and eaten_ghost[1]:
+            if 340 < ink_x < 560 and 340 < ink_y < 500:
+                ink_target = (400, 100)
+            else:
+                ink_target = (player_x, player_y)
         else:
             ink_target = return_target
         if not pinky.dead:
             pink_target = (player_x, runaway_y)
+        elif not pinky.dead and eaten_ghost[2]:
+            if 340 < pink_x < 560 and 340 < pink_y < 500:
+                pink_target = (400, 100)
+            else:
+                pink_target = (player_x, player_y)
         else:
             pink_target = return_target
-        if not clyde.dead:
+        if not clyde.dead and not eaten_ghost[3]:
             clyd_target = (450, 450)
+        elif not clyde.dead and eaten_ghost[3]:
+            if 340 < clyd_x < 560 and 340 < clyd_y < 500:
+                clyd_target = (400, 100)
+            else:
+                clyd_target = (player_x, player_y)
         else:
             clyd_target = return_target
     else:
@@ -534,6 +554,7 @@ while run:
         ghost_speeds[2] = 4
     if clyde_dead:
         ghost_speeds[3] = 4
+
     player_circle = pygame.draw.circle(screen, 'black', (center_x, center_y), 20, 2)
     draw_player()
     blinky = Ghost(blinky_x, blinky_y, targets[0], ghost_speeds[0], blinky_img, blinky_direction, blinky_dead,
@@ -697,15 +718,19 @@ while run:
     if powerup and player_circle.colliderect(blinky.rect) and not blinky.dead and not eaten_ghost[0]:
         blinky_dead = True
         eaten_ghost[0] = True
+        score += (2 ** eaten_ghost.count(True)) * 100
     if powerup and player_circle.colliderect(inky.rect) and not inky.dead and not eaten_ghost[1]:
         inky_dead = True
         eaten_ghost[1] = True
+        score += (2 ** eaten_ghost.count(True)) * 100
     if powerup and player_circle.colliderect(pinky.rect) and not pinky.dead and not eaten_ghost[2]:
         pinky_dead = True
         eaten_ghost[2] = True
+        score += (2 ** eaten_ghost.count(True)) * 100
     if powerup and player_circle.colliderect(clyde.rect) and not clyde.dead and not eaten_ghost[3]:
         clyde_dead = True
         eaten_ghost[3] = True
+        score += (2 ** eaten_ghost.count(True)) * 100
 
 
     for event in pygame.event.get():

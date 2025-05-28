@@ -94,7 +94,9 @@ class Ghost:
         num2 = (WIDTH//30)
         num3 = 15
         self.turns = [False, False, False, False]
-        if self.center_x // 30 < 29:
+        if  0 < self.center_x // 30 < 29:
+            if level[(self.center_y - num3)//num1][self.center_x//num2]  == 9:
+                self.turns[2] = True
             if level[self.center_y // num1][(self.center_x - num3) // num2] < 3 \
                         or (level[self.center_y // num1][(self.center_x - num3) // num2] == 9 and (
                         self.in_box or self.dead)):
@@ -154,7 +156,7 @@ class Ghost:
         else:
             self.turns[0] = True    
             self.turns[1] = True
-        if 350 < self.x_pos < 550 and 370 < self.y_pos < 490:
+        if 350 < self.x_pos < 550 and 370 < self.y_pos < 480:
             self.in_box = True
         else:
             self.in_box = False
@@ -434,6 +436,7 @@ def move_player(play_x, play_y):
         play_y += player_speed
     return play_x, play_y
 
+
 def get_targets(blink_x, blink_y, ink_x, ink_y, pink_x, pink_y, clyd_x, clyd_y):
     if player_x < 450:
         runaway_x = 900
@@ -578,3 +581,10 @@ while run:
 
     pygame.display.flip()
 pygame.quit()
+
+
+# get ghosts moving through ghost door
+# lose a life and reset on collision with ghost
+# eat ghost and send running back to cage if powerup
+# create 3 extra movement algorithms
+# sound effects, restart and winning messages
